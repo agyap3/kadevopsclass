@@ -10,14 +10,10 @@ Vagrant.configure('2') do |config|
   config.ssh.forward_agent = true
   config.vm.provider "virtualbox" do |vb|
    # vb.name = 'homeserver1'
-    vb.cpus = '1'
+    vb.cpus = '2'
     vb.memory = '1024'
-    vb.gui = true
-  #config.vm.provision "shell", inline: <<-SHELL
-   # "echo Welcome to home Linux Lab Server" 
-    #dnf update -y
-  #SHELL
-   end
+  config.vm.provision "shell", inline: "echo Welcome to home Linux Lab Server"
+    end
   end
 
   #home client 
@@ -29,13 +25,9 @@ Vagrant.configure('2') do |config|
   config.ssh.forward_agent = true
   config.vm.provider "virtualbox" do |vb|
     #vb.name = 'homeclient1'
-    vb.cpus = '1'
+    vb.cpus = '2'
     vb.memory = '1024'
-    vb.gui = true
-  #config.vm.provision "shell", inline: <<-SHELL
-   # "echo Welcome to Linux homeclient Lab Server"
-    #dnf update -y
-  #SHELL
-  end
+  config.vm.provision "shell", inline: "echo Welcome to Linux homeclient Lab Server"
+    end
   end
 end
