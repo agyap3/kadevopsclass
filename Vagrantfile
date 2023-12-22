@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure('2') do |config|
-  #home server
+  #home server configs
   config.vm.define "homeserver" do |homeserver|
   config.vm.box = 'almalinux/8'
   config.vm.network "private_network", ip: '192.168.28.2'
@@ -20,7 +20,7 @@ Vagrant.configure('2') do |config|
    end
   end
 
-  #home client 
+  #home client configs
   config.vm.define "homeclient" do |homeclient|
   config.vm.box = 'almalinux/8'
   config.vm.network "private_network", ip: '192.168.28.3'
