@@ -1,41 +1,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure('2') do |config|
-  #home server configs
+  #home server 
   config.vm.define "homeserver" do |homeserver|
-  config.vm.box = 'almalinux/8'
-  config.vm.network "private_network", ip: '192.168.28.2'
-  config.vm.hostname = 'homeserver.example.com'
-  #config.ssh.port = '2200'
-  config.ssh.forward_agent = true
-  config.vm.provider "virtualbox" do |vb|
-   # vb.name = 'homeserver1'
-    vb.cpus = '1'
-    vb.memory = '1024'
-    vb.gui = true
-  #config.vm.provision "shell", inline: <<-SHELL
-   # "echo Welcome to home Linux Lab Server" 
-    #dnf update -y
-  #SHELL
-   end
+  homeserver.vm.box = 'almalinux/8'
+  homeserver.vm.hostname = 'homeserver.example.com'
+  homeserver.vm.network "private_network", ip: '192.168.28.2'
+  
+  homeserver.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;"
+
   end
 
-  #home client configs
+  #home client 
   config.vm.define "homeclient" do |homeclient|
-  config.vm.box = 'almalinux/8'
-  config.vm.network "private_network", ip: '192.168.28.3'
-  config.vm.hostname = 'homeclient.example.com'
-  #config.ssh.port = '2201'
-  config.ssh.forward_agent = true
-  config.vm.provider "virtualbox" do |vb|
-    #vb.name = 'homeclient1'
-    vb.cpus = '1'
-    vb.memory = '1024'
-    vb.gui = true
-  #config.vm.provision "shell", inline: <<-SHELL
-   # "echo Welcome to Linux homeclient Lab Server"
-    #dnf update -y
-  #SHELL
-  end
+  homeclient.vm.box = 'almalinux/8'
+  homeclient.vm.hostname = 'homeclient.example.com'
+  homeclient.vm.network "private_network", ip: '192.168.28.3'
+  
+  homeclient.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;"
+
   end
 end
